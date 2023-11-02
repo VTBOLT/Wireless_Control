@@ -4,5 +4,3 @@ import serial
 
 
 print ("Hello World")
-print("Hello")
-print("hey")
