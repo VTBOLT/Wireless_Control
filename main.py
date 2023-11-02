@@ -1,8 +1,10 @@
 import time
 import math
-import serial
+import serial as ps
 
 
-print ("Hello World")
-print("Hello")
-print("hey")
+with ps.Serial('COM3', 115200, timeout=20) as ser:
+    while True:
+        x = ser.readline()
+        print(x)
+        print()
