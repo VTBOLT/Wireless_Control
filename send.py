@@ -1,7 +1,7 @@
 # Sending data to the Xbee to check if we are using the correct format
 
 # Use this file in conjunction with the test file to complete the different cases
-
+#hello 
 import time
 import math
 import serial as ps
