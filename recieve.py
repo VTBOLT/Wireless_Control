@@ -28,6 +28,8 @@ def recieveData(message):
 
         return asciiMsg
 
-# Message is: "hëllo world;test!" -> output should be: "hllo world
-#                                                       test!"
-print(recieveData('7E 00 13 10 01 00 00 00 00 00 00 FF FF FF FF 00 00 68 65 6C 6C 6F 20 77 6F 72 6C 64 3B 74 65 73 74 21 01'))
+# Message is: "Velocity: 25m/s;Speed: 100m/s;Distance Traveled: 1000m;Battery Life: 67%" -> output should be: "Velocity: 25m/s
+#                                                                                                              Speed: 100m/s
+#                                                                                                              Distance Traveled: 1000m
+#                                                                                                              Battery Life: 67%"
+print(recieveData('7E 00 13 10 01 00 00 00 00 00 00 FF FF FF FF 00 00 56 65 6C 6F 63 69 74 79 3A 20 32 35 6D 2F 73 3B 53 70 65 65 64 3A 20 31 30 30 6D 2F 73 3B 44 69 73 74 61 6E 63 65 20 54 72 61 76 65 6C 65 64 3A 20 31 30 30 30 6D 3B 42 61 74 74 65 72 79 20 4C 69 66 65 3A 20 36 37 25 20 01'))
