@@ -128,22 +128,3 @@ with ps.Serial(com, constants.baudrate,timeout=constants.timeout) as ser:
        x=ser.write(bytes.fromhex(finalTransmit))
 ser.close()
 
-
-
-
-
-    
-
-    
-
-
-# User settings
-#com = 'COM4' # MUST BE DIFFERENT FROM THE RECIEVE FILE
-
-
-# Object instatiation
-#with ps.Serial(com, constants.baudrate, constants.timeout) as ser:
-   # while True:
-     #   x=ser.readline()
-       # print(x)
-       # print()
