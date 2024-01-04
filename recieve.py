@@ -23,7 +23,7 @@ def recieveData(message):
         checkSum = message[-2:]
         data = message[34:len(message)-2]
 
-        asciiConvert = bytes.fromhex(data).decode('ascii')
+        asciiConvert = bytes.fromhex(data).decode('ascii') # This won't be needed most likely
         asciiMsg = asciiConvert.replace(';', '\n')
 
         return asciiMsg
