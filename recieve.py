@@ -6,6 +6,7 @@ import codecs
 import binascii
 import string
 
+#Test Commit
 # User settings
 com = 'COM3'
 constants = constants.Constants # Check the constants as needed for testing
