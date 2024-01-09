@@ -20,9 +20,21 @@ def recieveData(message):
         message = ''.join(filter(lambda x: x in printable, message))
         
         startDelim = message[:2]# dataList[0]
+        # The last thing in here is the setup options. These are between the data and the start delim
         checkSum = message[-2:]
         data = message[34:len(message)-2]
 
+        # PCAN Data 
+        packCurrent         = data[:2]  # 0.1 A
+        packVoltage         = data[2:4] # 0.1
+        packStateOfCharge   = data[4]   # 0.5 %
+        relayState          = data[5:7] # n/a
+        packDCL             = data[:2]  # 1 A
+        packCCL             = data[2:4] # 1 A
+        internalTemp        = data[4:6] # 1 degC
+        avgCellResistance   = data[4:5] # 0.01 mOhms
+
+        # May not need this
         asciiConvert = bytes.fromhex(data).decode('ascii') # This won't be needed most likely
         asciiMsg = asciiConvert.replace(';', '\n')
 
