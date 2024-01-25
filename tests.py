@@ -1,8 +1,12 @@
 import csv
-import binascii
+
+data_test = bytearray([0xb6, 0x85, 0x1f])
 
 with open('xBeeData.csv', 'w', newline='') as csvfile:
-    spamwriter = csv.writer(csvfile, delimiter=' ',
-                            quotechar='|', quoting=csv.QUOTE_MINIMAL)
-    spamwriter.writerow(bytearray([0x12, 0x29, 0xF7, 0x1B]).hex())
+    fieldnames = ['Status', 'Pull Voltage', 'Speed']
+    writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+
     
+    writer.writeheader()
+    writer.writerow({fieldnames[0]: hex(data_test[0]), fieldnames[1] : hex(data_test[1]), fieldnames[2] : hex(data_test[2])})
+    writer.writerow({fieldnames[0]: hex(data_test[0]), fieldnames[1] : hex(data_test[1]), fieldnames[2] : hex(data_test[2])})
