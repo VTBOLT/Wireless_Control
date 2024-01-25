@@ -1,12 +1,37 @@
-import serial
-ser = serial.Serial(port="COM4")
-received_hex_data = ""
-bytesToRead = 3
-# Example usage
-serial_port = "COM4"  # Replace with your actual serial port
-while 1:
-    inWaiting = ser.in_waiting
-    if inWaiting >= bytesToRead:
-        received_hex_data = ser.read(bytesToRead).hex()
-    
-    print( received_hex_data)
+import sys
+import glob
+import serial.tools.list_ports
+
+
+def serial_ports():
+    """ Lists serial port names
+
+        :raises EnvironmentError:
+            On unsupported or unknown platforms
+        :returns:
+            A list of the serial ports available on the system
+    """
+    if sys.platform.startswith('win'):
+        ports = ['COM%s' % (i + 1) for i in range(256)]
+    elif sys.platform.startswith('linux') or sys.platform.startswith('cygwin'):
+        # this excludes your current terminal "/dev/tty"
+        ports = glob.glob('/dev/tty[A-Za-z]*')
+    elif sys.platform.startswith('darwin'):
+        ports = glob.glob('/dev/tty.*')
+    else:
+        raise EnvironmentError('Unsupported platform')
+
+    result = []
+    for port in ports:
+        try:
+            s = serial.Serial(port)
+            s.close()
+            result.append(port)
+        except (OSError, serial.SerialException):
+            pass
+    return result
+
+
+if __name__ == '__main__':
+    print(serial_ports())
+    print(serial.tools.list_ports())
