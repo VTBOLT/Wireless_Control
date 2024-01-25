@@ -11,7 +11,7 @@ REMOTE_NODE_ID = "VTBOLT"  # Any changes to this MUST be done in XCTU as well. O
 
 
 def main():
-    DATA_TO_SEND = [0x12, 0x29, 0xF7, 0x1B]
+    DATA_TO_SEND = bytearray([0x12, 0x29, 0xF7, 0x1B])
     device = XBeeDevice(PORT, BAUD_RATE)
 
     DATA_TO_SEND = bytearray(DATA_TO_SEND)
