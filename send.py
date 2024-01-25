@@ -1,8 +1,8 @@
 from digi.xbee.devices import XBeeDevice
-
+import digi.xbee.util.utils
 
 # TODO: Replace with the serial port where your local module is connected to.
-PORT = "COM4"
+PORT = "COM3"
 # TODO: Replace with the baud rate of your local module.
 BAUD_RATE = 115200
 
@@ -11,10 +11,9 @@ REMOTE_NODE_ID = "VTBOLT"  # Any changes to this MUST be done in XCTU as well. O
 
 
 def main():
-    DATA_TO_SEND = bytearray([0x12, 0x29, 0xF7, 0x1B])
     device = XBeeDevice(PORT, BAUD_RATE)
 
-    DATA_TO_SEND = bytearray(DATA_TO_SEND)
+    DATA_TO_SEND = digi.xbee.util.utils.hex_to_string(bytearray([0x12, 0x29, 0xF7, 0x1B]))
 
     NUM_TO_SEND = 5
     while NUM_TO_SEND > 0:

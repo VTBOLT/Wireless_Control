@@ -1,4 +1,5 @@
 from digi.xbee.devices import XBeeDevice
+import digi.xbee.util.utils
 
 # TODO: Replace with the serial port where your local module is connected to.
 PORT = "COM5"
@@ -11,6 +12,7 @@ def main():
     print(" | XBee Python Library Receive Data Sample |")
     print(" +-----------------------------------------+\n")
 
+    
     device = XBeeDevice(PORT, BAUD_RATE)
 
     try:
@@ -21,7 +23,7 @@ def main():
                                      xbee_message.data.decode()))
 
         device.add_data_received_callback(data_receive_callback)
-
+        
         print("Waiting for data...\n")
         input()
 
