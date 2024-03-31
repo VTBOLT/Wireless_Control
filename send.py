@@ -6,16 +6,17 @@ PORT = "COM5"
 # TODO: Replace with the baud rate of your local module.
 BAUD_RATE = 115200
 
-DATA_TO_SEND = [0x12, 0x29, 0xF7, 0x1B]
+#DATA_TO_SEND = [0x12, 0x29, 0xF7, 0x1B]
+#DATA_TO_SEND = "Hello"
 REMOTE_NODE_ID = "VTBOLT"  # Any changes to this MUST be done in XCTU as well. Or at least send an AT command
 
 
 def main():
     device = XBeeDevice(PORT, BAUD_RATE)
 
-    DATA_TO_SEND = digi.xbee.util.utils.hex_to_string(bytearray([0x12, 0x29, 0xF7, 0x1B]))
+    DATA_TO_SEND = digi.xbee.util.utils.hex_to_string(([0x12, 0x29, 0xF7, 0x1B]))
 
-    NUM_TO_SEND = 5
+    NUM_TO_SEND = 1
     while NUM_TO_SEND > 0:
       try:
          device.open()

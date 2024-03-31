@@ -3,6 +3,7 @@ import csv
 data_test = bytearray([0xb6, 0x85, 0x1f])
 
 with open('xBeeData.csv', 'w', newline='') as csvfile:
+    col
     fieldnames = ['Status', 'Pull Voltage', 'Speed']
     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
