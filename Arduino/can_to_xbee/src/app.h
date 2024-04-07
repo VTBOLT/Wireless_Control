@@ -1,14 +1,11 @@
 /**
  * @file app.h
  *
- * @brief Header containing macros, variables, and function initializations for
- * main.cpp
- *
- * @ingroup default
+ * @brief Header containing macros, variables, and function initializations for main.cpp
  *
  * @author Colton Tshudy
  *
- * @version 4/7/2024
+ * @date 4/7/2024
  */
 
 /* Arduino Includes */
@@ -51,9 +48,9 @@ typedef struct _Application Application;
 Application Application_construct();
 
 /** Primary loop */
-void Application_loop(Application *app_p);
+void applicationLoop(Application *app_p);
 
 /** Heatbeat of the Arduino */
-void WatchdogLED(Application *app_p);
+void nonBlockingLED(Application *app_p);
 
 #endif /* APPLICATION_H_ */

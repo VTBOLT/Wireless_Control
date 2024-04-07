@@ -5,13 +5,10 @@
  *
  * @author Colton Tshudy
  *
- * @version 4/7/2024
+ * @date 4/7/2024
  */
 
-#include <Arduino.h>
 #include <app.h>
-#include <HAL\HAL.h>
-#include <HAL\Timer.h>
 
 Application app; // Application struct
 
@@ -19,14 +16,17 @@ void setup()
 {
     // Constructs the application struct
     app = Application_construct();
+
+    Serial.begin(115200);
 }
 
 void loop()
 {
     // Should blink every second, if not, the Arduino is hung
-    WatchdogLED(&app);
+    nonBlockingLED(&app);
 
-
+    // Primary source of action, baby
+    applicationLoop(&app);
 }
 
 // First time setup for the Application
@@ -39,8 +39,13 @@ Application Application_construct()
     return app;
 }
 
+void applicationLoop(Application *app_p)
+{
+
+}
+
 // Blinks an LED once a second as a visual indicator of processor hang
-void WatchdogLED(Application *app_p)
+void nonBlockingLED(Application *app_p)
 {
     static bool state = true;
 
@@ -55,8 +60,8 @@ void WatchdogLED(Application *app_p)
 // Pin state setup
 void InitializePins()
 {
-  pinMode(LED_PIN, OUTPUT);
-  pinMode(CS_PIN, OUTPUT);
-  pinMode(INC_PIN, OUTPUT);
-  pinMode(UD_PIN, OUTPUT);
+    pinMode(LED_PIN, OUTPUT);
+    pinMode(CS_PIN, OUTPUT);
+    pinMode(INC_PIN, OUTPUT);
+    pinMode(UD_PIN, OUTPUT);
 }

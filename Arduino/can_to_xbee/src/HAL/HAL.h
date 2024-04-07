@@ -13,7 +13,7 @@
 /* Arduino Includes */
 #include <Arduino.h>
 
-#ifndef HAL_H_a
+#ifndef HAL_H_
 #define HAL_H_
 
 // Serial recieved and end transmission characters
