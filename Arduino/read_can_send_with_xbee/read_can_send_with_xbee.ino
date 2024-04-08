@@ -1,6 +1,7 @@
 uint8_t inputData;
 int prevInput=0;
 
+// Constants for the frames before any data
 #define START_DELIM     0x7E
 #define FRAME_TYPE      0x10
 #define FRAME_ID        0x01
@@ -8,10 +9,12 @@ int prevInput=0;
 #define DESTINATION_16  0xFF, 0xFE
 #define BROADCAST_RAD   0x00
 #define OPTIONS         0x00
+
+
 #define FRAME_SIZE 27 // 29 for abcdefghijk
-#define CONSTANT_SIZE 14
-#define CAN_DATA_LENGTH 8 // the number 
-#define RECEIVE_DATA_LENGTH CAN_DATA_LENGTH + 1
+#define CONSTANT_SIZE 14  // Size of the constants above
+#define CAN_DATA_LENGTH 8 // the number of data bytes we are reading 
+#define RECEIVE_DATA_LENGTH CAN_DATA_LENGTH + 1 // Full data packet length (to include the ID byte)
 
 ////////////////////////////////////////////////////////////////////////
 // CAN setup
