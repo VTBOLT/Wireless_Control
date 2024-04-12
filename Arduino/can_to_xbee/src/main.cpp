@@ -8,7 +8,7 @@
  * @date 4/7/2024
  */
 
-#include <app.h>
+#include <Inc/app.h>
 
 Application app; // Application struct
 
