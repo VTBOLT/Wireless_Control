@@ -19,7 +19,7 @@ def main():
         device.open()
 
         def data_receive_callback(xbee_message):
-            incomingData = xbee_message.data.decode()
+            incomingData = xbee_message.data
             print(incomingData)
             
 
