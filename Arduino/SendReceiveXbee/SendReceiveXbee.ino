@@ -49,6 +49,12 @@ void loop() {
   uint8_t can_id = 0x01;
   CANFrame frame;
 
+int canindex=0;
+for (canindex; canindex<CAN_DATA_LENGTH; canindex++)
+{
+canindex[CAN_DATA_LENGTH]=random(0,255)+canindex[CAN_DATA_LENGTH]
+
+}
   // if (CAN.read(frame) == CANController::IOResult::OK) {
   //  // frame.print("RX");
   //   frame.getData(canDataArray, CAN_DATA_LENGTH);
