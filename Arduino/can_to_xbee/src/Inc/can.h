@@ -8,7 +8,21 @@
  * @date 4/7/2024
  */
 #include <Arduino.h>
-struct _MessageData
+#include "AA_MCP2515.h"  // CAN Communication library
+
+#ifndef CAN_H_
+#define CAN_H_
+////////////////////////////////////////////////////////////////////////
+// CAN setup
+const CANBitrate::Config CAN_BITRATE = CANBitrate::Config_8MHz_500kbps;
+const uint8_t CAN_PIN_CS = 53;
+const int8_t CAN_PIN_INT = 2;
+
+CANConfig config(CAN_BITRATE, CAN_PIN_CS, CAN_PIN_INT);
+CANController CAN(config);
+////////////////////////////////////////////////////////////////////////
+
+struct _MessageData1
 {
     uint8_t aux_voltage;
     uint8_t aux_percent;
@@ -25,4 +39,6 @@ struct _MessageData
 
 
 };
-typedef struct _MessageData MessageData;
+typedef struct _MessageData1 MessageData1;
+
+#endif /* CAN_H */

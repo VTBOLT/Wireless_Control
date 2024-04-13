@@ -10,11 +10,13 @@
 
 /* Arduino Includes */
 #include <Arduino.h>
+#include <Inc/xbee.h>
+#include <Inc/can.h>
 
 /* HAL Includes */
 #include <HAL\HAL.h>
 #include <HAL\Timer.h>
-#
+
 #ifndef APPLICATION_H_
 #define APPLICATION_H_
 
@@ -41,6 +43,8 @@ typedef enum
 struct _Application
 {
     SWTimer watchdog_timer;
+    XbeeFrame xbeeFrame1;
+    MessageData1 messageData1;
 };
 typedef struct _Application Application;
 
