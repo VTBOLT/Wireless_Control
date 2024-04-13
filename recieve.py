@@ -8,6 +8,7 @@ ports = serial.tools.list_ports.comports()
 for port, desc, hwid in sorted(ports):
         # Checks that the mega isn't in here, but we could
         # make it so ALL arduinos are ignored
+        
         if "Arduino Mega 2560" not in desc:
             PORT = str(port)
             print("Using " + PORT)
