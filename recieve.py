@@ -1,8 +1,18 @@
 from digi.xbee.devices import XBeeDevice
+import serial.tools.list_ports
 
 
-# TODO: Replace with the serial port where  your local module is connected to.
-PORT = "COM11"
+# Automatically find the com port that does not have the Mega
+# on it.
+ports = serial.tools.list_ports.comports()
+for port, desc, hwid in sorted(ports):
+        if "Arduino Mega 2560" not in desc:
+            PORT = str(port)
+            print("Using " + PORT)
+            
+            
+        
+
 # TODO: Replace with the baud rate of your local module.
 BAUD_RATE = 115200
 
@@ -54,5 +64,6 @@ def main():
 
 
 if __name__ == '__main__':
+    
     main()
 
