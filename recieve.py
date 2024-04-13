@@ -20,10 +20,11 @@ def parseXBeeFrame(ByteArray):
     if ByteArray[0] != 0x01:
         return -1
 
+    # int.from_bytes need the byte array as a list, not a single index. No idea why it works this way but it does
     data = {
-            'aux_voltage': int.from_bytes(ByteArray[1], byteorder='little', signed=False),
-            'aux_percent': int.from_bytes(ByteArray[2], byteorder='little', signed=False),
-            'charge_state': int.from_bytes(ByteArray[3], byteorder='little', signed=False),
+            'aux_voltage': int.from_bytes(ByteArray[1:2], byteorder='little', signed=False),
+            'aux_percent': int.from_bytes(ByteArray[2:3], byteorder='little', signed=False),
+            'charge_state': int.from_bytes(ByteArray[3:4], byteorder='little', signed=False),
             'high_cell_temp': int.from_bytes(ByteArray[4:6], byteorder='little', signed=True),
             'low_cell_temp': int.from_bytes(ByteArray[6:8], byteorder='little', signed=True),
             'motor_temp': int.from_bytes(ByteArray[8:10], byteorder='little', signed=True),
@@ -48,7 +49,7 @@ def main():
             incomingData = xbee_message.data
             data = parseXBeeFrame(incomingData)
             if( data != -1):
-                data.print()
+                print(data)
             
             
 
@@ -64,6 +65,5 @@ def main():
 
 
 if __name__ == '__main__':
-    
     main()
 
