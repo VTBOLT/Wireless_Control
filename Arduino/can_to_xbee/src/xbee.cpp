@@ -7,4 +7,9 @@
  *
  * @date 4/7/2024
  */
+#include <Arduino.h>
+#include"Inc/xbee.h"
 
+uint8_t calcCheckSum(XbeeFrame *frame){
+    
+}
