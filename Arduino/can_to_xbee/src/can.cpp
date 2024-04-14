@@ -3,9 +3,9 @@
  *
  * @brief Functions for reading CAN messages
  *
- * @author Colton Tshudy
+ * @author Colton Tshudy, Aaron Kanefsky
  *
- * @date 4/7/2024
+ * @date 4/13/2024
  */
 
 
