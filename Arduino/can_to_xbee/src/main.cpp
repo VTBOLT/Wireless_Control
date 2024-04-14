@@ -11,6 +11,7 @@
 #include <Inc/app.h>
 
 
+
 Application app; // Application struct
 
 void setup()
@@ -34,6 +35,9 @@ void loop()
 Application Application_construct()
 {
     Application app;
+    
+    // Fill a message
+    //app.messageData1 = {};
 
     app.watchdog_timer = SWTimer_construct(MS_IN_SECONDS);
 
@@ -42,7 +46,13 @@ Application Application_construct()
 
 void applicationLoop(Application *app_p)
 {
-
+    app_p->xbeeFrame1 = constructFrame();
+    for(int i = 0; i < DATA_SIZE; i++){
+        Serial.print(*app_p->xbeeFrame1.data_p[i]);
+    }
+    Serial.println();
+    
+    //xBeeFillFrame1(&app_p->xbeeFrame1, &app_p->messageData1);
 }
 
 // Blinks an LED once a second as a visual indicator of processor hang
