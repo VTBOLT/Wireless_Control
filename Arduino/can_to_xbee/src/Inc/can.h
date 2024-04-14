@@ -8,7 +8,7 @@
  * @date 4/7/2024
  */
 #include <Arduino.h>
-#include "AA_MCP2515.h"  // CAN Communication library
+#include <AA_MCP2515.h>  // CAN Communication library
 
 #ifndef CAN_H_
 #define CAN_H_

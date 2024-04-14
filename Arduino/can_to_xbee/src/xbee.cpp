@@ -9,7 +9,7 @@
  */
 #include <Arduino.h>
 #include"Inc/xbee.h"
-XbeeFrame constructFrame(XbeeFrame *frame_p){
+void constructFrame(XbeeFrame *frame_p){
     // Only for constant, non- changing values
     frame_p->startDelim = START_DELIM;
     frame_p->length = calcLength(frame_p);

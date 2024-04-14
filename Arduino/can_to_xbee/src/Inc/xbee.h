@@ -13,6 +13,7 @@
 
 #ifndef XBEE_H
 #define XBEE_H
+
 // Macros for the constants
 #define START_DELIM 0x7E
 #define FRAME_TYPE 0x10
@@ -39,7 +40,7 @@ struct _XbeeFrame
 };
 typedef struct _XbeeFrame XbeeFrame;
 
-XbeeFrame constructFrame(XbeeFrame *frame);
+void constructFrame(XbeeFrame *frame);
 uint16_t calcLength(XbeeFrame *frame_p);
 uint8_t calcCheckSum(XbeeFrame *frame_p);
 void xBeeFillFrame1(XbeeFrame *frame_p, MessageData1 *messageData_p);    // ID 1
