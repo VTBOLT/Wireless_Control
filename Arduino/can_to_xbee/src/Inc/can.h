@@ -13,6 +13,15 @@
 
 /* INCLUDES */
 #include <Arduino.h>
+#include <mcp_can.h>
+#include <Inc/xbee.h>
+
+/* MACROS */
+#define CAN0_INT 2 
+
+
+
+      
 
 /* STRUCTS */
 struct _MessageData1
@@ -30,5 +39,8 @@ struct _MessageData1
     uint64_t time_stamp_unix;
 };
 typedef struct _MessageData1 MessageData1;
+
+
+
 
 #endif /* CAN_H */

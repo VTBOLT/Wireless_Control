@@ -28,7 +28,7 @@ XbeeFrame constructFrame()
     frame.options = OPTIONS;
 
     // set data bytes all to 0x00
-    memset(frame.data_p, 0x00, sizeof(*frame.data_p));
+    memset(frame.data_p, 0, sizeof(frame.data_p));
 
     // set dynamic frame elements
     frame.length = calcLength(&frame);
@@ -65,13 +65,8 @@ uint8_t calcCheckSum(XbeeFrame *frame_p)
     sum += (frame_p->options);
     for (int i = 0; i < DATA_SIZE; i++)
     {
-        sum += *(frame_p->data_p)[i];
+        sum += frame_p->data_p[i];
     }
     return 0xFF - sum;
 }
 
-void xBeeFillFrame1(XbeeFrame *frame_p, MessageData1 *messageData_p)
-{
-    memcpy(frame_p->data_p, messageData_p, sizeof(*messageData_p));
-    calcCheckSum(frame_p);
-}

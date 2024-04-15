@@ -37,7 +37,7 @@ struct _XbeeFrame
     uint16_t bitAddr16;
     uint8_t broadcastRadius;
     uint8_t options;
-    byte *data_p[DATA_SIZE];
+    byte data_p[DATA_SIZE];
     uint8_t checksum;
 };
 typedef struct _XbeeFrame XbeeFrame;
@@ -67,12 +67,5 @@ uint16_t calcLength(XbeeFrame *frame_p);
  */
 uint8_t calcCheckSum(XbeeFrame *frame_p);
 
-/**
- * @brief Fills out the data field of frame with ID 0x01
- *
- * @param frame_p
- * @param messageData_p
- */
-void xBeeFillFrame1(XbeeFrame *frame_p, MessageData1 *messageData_p); // ID 1
 
 #endif /* XBEE_H */

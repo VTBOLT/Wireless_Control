@@ -13,6 +13,7 @@
 #include <Inc/xbee.h>
 #include <Inc/can.h>
 
+
 /* HAL Includes */
 #include <HAL\HAL.h>
 #include <HAL\Timer.h>
@@ -45,6 +46,8 @@ struct _Application
     SWTimer watchdog_timer;
     XbeeFrame xbeeFrame1;
     MessageData1 messageData1;
+   
+    
 };
 typedef struct _Application Application;
 
@@ -56,5 +59,16 @@ void applicationLoop(Application *app_p);
 
 /** Heatbeat of the Arduino */
 void nonBlockingLED(Application *app_p);
+
+/**
+ * @brief Fills out the data field of frame with ID 0x01
+ *
+ * @param frame_p
+ * @param messageData_p
+ */
+void xBeeFillFrame1(XbeeFrame *frame_p, MessageData1 *messageData_p); // ID 1
+
+
+void constructCAN(Application *app_p);
 
 #endif /* APPLICATION_H_ */
