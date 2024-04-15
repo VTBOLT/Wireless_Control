@@ -37,7 +37,7 @@ struct _XbeeFrame
     uint16_t bitAddr16;
     uint8_t broadcastRadius;
     uint8_t options;
-    byte *data_p[DATA_SIZE];
+    byte data_p[DATA_SIZE];
     uint8_t checksum;
 };
 typedef struct _XbeeFrame XbeeFrame;

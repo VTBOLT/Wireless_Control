@@ -42,7 +42,7 @@ Application Application_construct()
 
 void applicationLoop(Application *app_p)
 {
-
+    
 }
 
 // Blinks an LED once a second as a visual indicator of processor hang
