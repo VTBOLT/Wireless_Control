@@ -12,5 +12,7 @@
 
 
 
+void fillMessageData(MessageData1 *messageData, uint8_t inputData){
 
+}
 

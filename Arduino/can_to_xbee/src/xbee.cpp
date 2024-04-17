@@ -70,3 +70,17 @@ uint8_t calcCheckSum(XbeeFrame *frame_p)
     return 0xFF - sum;
 }
 
+
+void printFrame(XbeeFrame *frame_p){
+    Serial.print(frame_p->startDelim);
+    Serial.print(frame_p->length);
+    Serial.print(frame_p->frameType);
+    Serial.print(frame_p->frameID);
+    Serial.print(frame_p->bitAddr64);   // TODO: Make the print work with a uint64_t
+    Serial.print(frame_p->broadcastRadius);
+    Serial.print(frame_p->options);
+    Serial.print(frame_p->data_p);  // TODO: Make the print work for the data
+    Serial.print(frame_p->checksum);
+
+}
+

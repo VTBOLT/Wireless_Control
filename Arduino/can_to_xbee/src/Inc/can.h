@@ -40,7 +40,7 @@ struct _MessageData1
 };
 typedef struct _MessageData1 MessageData1;
 
-
+void fillMessageData(MessageData1 *inputData);
 
 
 #endif /* CAN_H */

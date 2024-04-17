@@ -67,5 +67,6 @@ uint16_t calcLength(XbeeFrame *frame_p);
  */
 uint8_t calcCheckSum(XbeeFrame *frame_p);
 
-
+void print(uint64_t value);
+void printFrame(XbeeFrame *frame_p);
 #endif /* XBEE_H */
