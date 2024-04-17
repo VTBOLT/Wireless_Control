@@ -25,7 +25,7 @@
 #define OPTIONS 0x00
 #define SCAFFOLD_SIZE 18 // Constant size of the frame's scaffolding
 #define DATA_SIZE 46     // User defined size of the data contained in the frame
-
+#define FRAME_SIZE DATA_SIZE + SCAFFOLD_SIZE
 /* STRUCTS */
 struct _XbeeFrame
 {
@@ -67,6 +67,12 @@ uint16_t calcLength(XbeeFrame *frame_p);
  */
 uint8_t calcCheckSum(XbeeFrame *frame_p);
 
-void print(uint64_t value);
+/**
+ * @brief Prints out the entire Xbee frame using Serial and Serial1
+ *
+ * @param frame_p
+ * @return void
+ */
 void printFrame(XbeeFrame *frame_p);
+
 #endif /* XBEE_H */

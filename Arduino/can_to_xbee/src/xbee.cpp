@@ -12,6 +12,7 @@
 #include <Arduino.h>
 #include "Inc/xbee.h"
 
+
 /* Function Definitions */
 
 XbeeFrame constructFrame()
@@ -72,15 +73,10 @@ uint8_t calcCheckSum(XbeeFrame *frame_p)
 
 
 void printFrame(XbeeFrame *frame_p){
-    Serial.print(frame_p->startDelim);
-    Serial.print(frame_p->length);
-    Serial.print(frame_p->frameType);
-    Serial.print(frame_p->frameID);
-    Serial.print(frame_p->bitAddr64);   // TODO: Make the print work with a uint64_t
-    Serial.print(frame_p->broadcastRadius);
-    Serial.print(frame_p->options);
-    Serial.print(frame_p->data_p);  // TODO: Make the print work for the data
-    Serial.print(frame_p->checksum);
-
+    const uint8_t *ptr = (const uint8_t*) frame_p;
+    size_t size = sizeof(_XbeeFrame);
+    for(size_t i = 0; i < size; i++){
+        Serial.write(*(ptr+i));
+    }
 }
 

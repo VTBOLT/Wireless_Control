@@ -72,16 +72,16 @@ void applicationLoop(Application *app_p)
 {
     app_p->xbeeFrame1 = constructFrame();
 
-    for (int i = 0; i < DATA_SIZE; i++)
-    {
-     memcpy(&app_p->xbeeFrame1.data_p[i], rxBuf, len);
-    }
-    // for (int i = 0; i < DATA_SIZE; i++)
-    // {
-    //   Serial.print(app_p->xbeeFrame1.data_p[i], HEX);
-    // }
+  // Check if the last byte is empty
+    // If not, trigger an interrupt
+
+  // The frame is done and pack the CAN frame into a struct
+  
+
+  // If so, keep reading
+    calcLength(&app_p->xbeeFrame1);
     calcCheckSum(&app_p->xbeeFrame1);
-    Serial.println(app_p->xbeeFrame1.checksum, HEX);
+    printFrame(&app_p->xbeeFrame1);
 }
 
 // Blinks an LED once a second as a visual indicator of processor hang
