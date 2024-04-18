@@ -23,8 +23,9 @@
 #define AUX_BATTERY 0x700
 #define MAIN_BATTERY 0x6B0
 #define MAIN_PACK_TEMP 0x6B4
-#define MOTOR_TEMP 0x6B1
-#define BMS_TEMP 0xA1
+#define MOTOR_TEMP 0xA2
+#define BMS_TEMP 0x6B1
+#define MC_TEMP 0xA1
 #define RPM 0xA5
 #define SPEED 0x00
 
@@ -36,13 +37,14 @@
 struct _MessageData1
 {
     // Defined from Mason
-    uint8_t aux_voltage;
-    uint8_t aux_percent;
+    uint16_t aux_voltage;
+    //uint8_t aux_percent;
     uint8_t pack_state_of_charge;
     uint16_t high_cell_temp;
     uint16_t low_cell_temp;
     uint16_t motor_temperature;
     uint16_t bms_temperature;
+    uint16_t mc_temp;
     int16_t motor_speed;
     int16_t bike_speed;
     
