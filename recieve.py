@@ -9,11 +9,12 @@ for port, desc, hwid in sorted(ports):
         # Checks that the mega isn't in here, but we could
         # make it so ALL arduinos are ignored
         
-        if "Arduino Mega 2560" not in desc:
+        if "Arduino" not in desc:
             PORT = str(port)
             print("Using " + PORT)
-            
-            
+            break
+
+PORT = "COM4"           
         
 
 # TODO: Replace with the baud rate of your local module.

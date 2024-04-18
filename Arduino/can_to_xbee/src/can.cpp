@@ -14,6 +14,7 @@ void checkCan(MessageData1 *messageData, MCP_CAN canObj)
 {
     if (!digitalRead(CAN0_INT)) // If CAN0_INT pin is low, read receive buffer
     {
+        
         long unsigned int rxId;
         unsigned char len;
         unsigned char rxBuf[8];

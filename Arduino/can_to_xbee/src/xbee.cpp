@@ -113,9 +113,10 @@ void encodeData(XbeeFrame * frame_p, MessageData1* messageData1){
 void printFrame(XbeeFrame *frame_p){
     //unsigned int test = 1;
     
-    //uint8_t outFrame[20] = {0x7E, 0x00, 0x10, 0x10, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFE, 0x00, 0x00, 0x48, 0x69, 0x42};
-    uint8_t outFrame[FRAME_SIZE];
-    memset(outFrame, 0, sizeof(outFrame));  // Empty the frame
+    uint8_t outFrame[20] = {0x7E, 0x00, 0x10, 0x10, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFE, 0x00, 0x00, 0x48, 0x69, 0x42};
+    //uint8_t outFrame[FRAME_SIZE];
+    //memset(outFrame, 0, sizeof(outFrame));  // Empty the frame
+    Serial.write(outFrame, 20);
     
     // Fill the frame
     memcpy(outFrame, &(frame_p->startDelim), sizeof(frame_p->startDelim));
@@ -128,14 +129,15 @@ void printFrame(XbeeFrame *frame_p){
     memcpy(outFrame + 16, &(frame_p->options), sizeof(frame_p->options));
     memcpy(outFrame + 17, &(frame_p->data_p), sizeof(frame_p->data_p));
     memcpy(outFrame + 63, &(frame_p->checksum), sizeof(frame_p->checksum));
-
+    
     // const uint8_t *ptr = (const uint8_t*) frame_p;
     // char msgString[3];
     // for(size_t i = 0; i < sizeof(outFrame); i++){
     //     sprintf(msgString, " %.2X", *(outFrame+i));
     //     Serial.print(msgString);
     // }
-    Serial.write(outFrame, FRAME_SIZE);
+    // Serial.write(outFrame, FRAME_SIZE);
+    Serial.println();
 
 
 

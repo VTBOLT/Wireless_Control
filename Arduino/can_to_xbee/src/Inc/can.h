@@ -17,7 +17,7 @@
 
 
 /* MACROS */
-#define CAN0_INT 2 
+#define CAN0_INT 6 
 
 // CAN IDs
 #define AUX_BATTERY 0x700
