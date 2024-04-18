@@ -25,15 +25,16 @@ def parseXBeeFrame(ByteArray):
 
     # int.from_bytes need the byte array as a list, not a single index. No idea why it works this way but it does
     data = {
-            'aux_voltage': int.from_bytes(ByteArray[1:2], byteorder='little', signed=False),
-            'aux_percent': int.from_bytes(ByteArray[2:3], byteorder='little', signed=False),
+            'aux_voltage': int.from_bytes(ByteArray[1:3], byteorder='little', signed=False),
+            # 'aux_percent': int.from_bytes(ByteArray[2:3], byteorder='little', signed=False),
             'charge_state': int.from_bytes(ByteArray[3:4], byteorder='little', signed=False),
             'high_cell_temp': int.from_bytes(ByteArray[4:6], byteorder='little', signed=True),
             'low_cell_temp': int.from_bytes(ByteArray[6:8], byteorder='little', signed=True),
             'motor_temp': int.from_bytes(ByteArray[8:10], byteorder='little', signed=True),
             'bms_temp': int.from_bytes(ByteArray[10:12], byteorder='little', signed=False),
-            'motor_speed': int.from_bytes(ByteArray[12:14], byteorder='little', signed=True),
-            'bike_speed': int.from_bytes(ByteArray[14:16], byteorder='little', signed=True),
+            'motor_controller_temp' : int.from_bytes(ByteArray[12:14], byteorder='little', signed=False),
+            'motor_speed': int.from_bytes(ByteArray[14:16], byteorder='little', signed=True),
+            'bike_speed': int.from_bytes(ByteArray[16:18], byteorder='little', signed=True),
             # 'latitude': int.from_bytes(ByteArray[16:20], byteorder='little', signed=True), 
             # 'longitude': int.from_bytes(ByteArray[20:24], byteorder='little', signed=True),
             # 'time': int.from_bytes(ByteArray[24:32], byteorder='little', signed=False)
