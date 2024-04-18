@@ -26,7 +26,9 @@
 #define SCAFFOLD_SIZE 18 // Constant size of the frame's scaffolding
 #define DATA_SIZE 46     // User defined size of the data contained in the frame
 #define FRAME_SIZE DATA_SIZE + SCAFFOLD_SIZE
-/* STRUCTS */
+#define REV16(n) ((n << 8)  | (n>>8)) 
+
+
 struct _XbeeFrame
 {
     uint8_t startDelim;
@@ -56,7 +58,7 @@ XbeeFrame constructFrame();
  *
  * @return boolean for success
  */
-bool encodeData(XbeeFrame * frame_p, MessageData1* messageData1);
+void encodeData(XbeeFrame * frame_p, MessageData1* messageData1);
 
 /**
  * @brief Calculates the length field of the frame

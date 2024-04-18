@@ -24,7 +24,7 @@ XbeeFrame constructFrame()
     frame.frameType = FRAME_TYPE;
     frame.frameID = FRAME_ID;
     frame.bitAddr64 = DESTINATION_64;
-    frame.bitAddr16 = DESTINATION_16;
+    frame.bitAddr16 = REV16(DESTINATION_16);
     frame.broadcastRadius = BROADCAST_RAD;
     frame.options = OPTIONS;
 
@@ -33,10 +33,11 @@ XbeeFrame constructFrame()
     // Serial.println((unsigned long)frame.bitAddr16);
 
     // set data bytes all to 0x00
-    memset(frame.data_p, 0, sizeof(frame.data_p));
-
+    memset(frame.data_p, 0x00, sizeof(frame.data_p));
+    frame.data_p[0] = 1;
+    
     // set dynamic frame elements
-    frame.length = calcLength(&frame);
+    frame.length = REV16(calcLength(&frame));
     frame.checksum = calcCheckSum(&frame);
 
     return frame;
@@ -72,23 +73,33 @@ uint8_t calcCheckSum(XbeeFrame *frame_p)
     {
         sum += frame_p->data_p[i];
     }
-    return 0xFF - sum;
+    return 0xFF - (sum-3);
 }
 
+void encodeData(XbeeFrame * frame_p, MessageData1* messageData1){
+    //int test = 1;
+    //memcpy(frame_p->data_p, &test, 1);
+    
+}
 
 void printFrame(XbeeFrame *frame_p){
-    unsigned int test = 1;
-    uint8_t bit_endian_swap;
-    for(int i=0; i<7;++i){
-        bit_endian_swap = (bit_endian_swap|(test>>i)&0x01)<<1; 
-    }   
+    //unsigned int test = 1;
+    
     //uint8_t outFrame[20] = {0x7E, 0x00, 0x10, 0x10, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFE, 0x00, 0x00, 0x48, 0x69, 0x42};
     uint8_t outFrame[FRAME_SIZE];
-    memset(outFrame, 0, sizeof(outFrame));
+    memset(outFrame, 0, sizeof(outFrame));  // Empty the frame
+    
+    // Fill the frame
     memcpy(outFrame, &(frame_p->startDelim), sizeof(frame_p->startDelim));
-    memcpy(outFrame + 1, &test, sizeof(frame_p->length));
-    //memcpy(outFrame + 1, &(frame_p->length), sizeof(frame_p->length));
-
+    memcpy(outFrame + 1, &(frame_p->length), sizeof(frame_p->length));
+    memcpy(outFrame + 3, &(frame_p->frameType), sizeof(frame_p->frameType));
+    memcpy(outFrame + 4, &(frame_p->frameID), sizeof(frame_p->frameID));
+    memcpy(outFrame + 11, &(frame_p->bitAddr64), sizeof(frame_p->bitAddr64));
+    memcpy(outFrame + 13, &(frame_p->bitAddr16), sizeof(frame_p->bitAddr16));
+    memcpy(outFrame + 15, &(frame_p->broadcastRadius), sizeof(frame_p->broadcastRadius));
+    memcpy(outFrame + 16, &(frame_p->options), sizeof(frame_p->options));
+    memcpy(outFrame + 17, &(frame_p->data_p), sizeof(frame_p->data_p));
+    memcpy(outFrame + 63, &(frame_p->checksum), sizeof(frame_p->checksum));
 
     const uint8_t *ptr = (const uint8_t*) frame_p;
     char msgString[3];
@@ -96,7 +107,7 @@ void printFrame(XbeeFrame *frame_p){
         sprintf(msgString, " %.2X", *(outFrame+i));
         Serial.print(msgString);
     }
-    Serial1.write(outFrame, 20);
+    Serial1.write(outFrame, FRAME_SIZE);
 
 
 

@@ -49,16 +49,17 @@ Application Application_construct()
     Application app;
 
     app.watchdog_timer = SWTimer_construct(MS_IN_SECONDS);
-
+    app.xbeeFrame1 = constructFrame();
     return app;
 }
 
 void applicationLoop(Application *app_p)
 {
-    app_p->xbeeFrame1 = constructFrame();
+    
 
     checkCan(&app_p->messageData1, CAN0);
     Serial.println();
+    encodeData(&app_p->xbeeFrame1, &app_p->messageData1);
     // If so, keep reading
     calcLength(&app_p->xbeeFrame1);
     calcCheckSum(&app_p->xbeeFrame1);
