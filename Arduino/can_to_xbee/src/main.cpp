@@ -10,10 +10,6 @@
 
 #include <Inc/app.h>
 
-long unsigned int rxId;
-unsigned char len = 0;
-uint8_t rxBuf[8];
-byte msgString[128];                        // Array to store serial string
 
 MCP_CAN CAN0(53);
 Application app; // Application struct
@@ -43,17 +39,6 @@ void loop()
     // Should blink every second, if not, the Arduino is hung
     nonBlockingLED(&app);
 
-    if(!digitalRead(CAN0_INT))                         // If CAN0_INT pin is low, read receive buffer
-  {
-    CAN0.readMsgBuf(&rxId, &len, rxBuf);      // Read data: len = data length, buf = data byte(s)
-    
-    for(byte i = 0; i<len; i++){
-      msgString[i] = rxBuf[i];
-    }
-        
-    Serial.println();
-  }
-
     // Primary source of action, baby
     applicationLoop(&app);
 }
@@ -72,16 +57,13 @@ void applicationLoop(Application *app_p)
 {
     app_p->xbeeFrame1 = constructFrame();
 
-  // Check if the last byte is empty
-    // If not, trigger an interrupt
-
-  // The frame is done and pack the CAN frame into a struct
-  
-
+  checkCan(&app_p->messageData1, CAN0);
+  printCANFrame(&app_p->messageData1);
+  Serial.println();
   // If so, keep reading
     calcLength(&app_p->xbeeFrame1);
     calcCheckSum(&app_p->xbeeFrame1);
-    printFrame(&app_p->xbeeFrame1);
+    //printFrame(&app_p->xbeeFrame1);
 }
 
 // Blinks an LED once a second as a visual indicator of processor hang

@@ -74,7 +74,7 @@ uint8_t calcCheckSum(XbeeFrame *frame_p)
 
 void printFrame(XbeeFrame *frame_p){
     const uint8_t *ptr = (const uint8_t*) frame_p;
-    size_t size = sizeof(_XbeeFrame);
+    size_t size = sizeof(XbeeFrame);
     for(size_t i = 0; i < size; i++){
         Serial.write(*(ptr+i));
     }

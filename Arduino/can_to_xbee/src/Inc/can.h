@@ -14,10 +14,19 @@
 /* INCLUDES */
 #include <Arduino.h>
 #include <mcp_can.h>
-#include <Inc/xbee.h>
+
 
 /* MACROS */
 #define CAN0_INT 2 
+
+// CAN IDs
+#define AUX_BATTERY 0x700
+#define MAIN_BATTERY 0x6B0
+#define MAIN_PACK_TEMP 0x6B4
+#define MOTOR_TEMP 0x6B1
+#define BMS_TEMP 0xA1
+#define RPM 0xA5
+#define SPEED 0x00
 
 
 
@@ -26,21 +35,29 @@
 /* STRUCTS */
 struct _MessageData1
 {
+    // Defined from Mason
     uint8_t aux_voltage;
+    uint8_t aux_percent;
     uint8_t pack_state_of_charge;
     uint16_t high_cell_temp;
     uint16_t low_cell_temp;
     uint16_t motor_temperature;
     uint16_t bms_temperature;
-    uint16_t motor_speed;
-    uint16_t bike_speed;
-    uint32_t longitude;
-    uint32_t latitude;
+    int16_t motor_speed;
+    int16_t bike_speed;
+    
+    // Not defined yet
+    int32_t longitude;
+    int32_t latitude;
     uint64_t time_stamp_unix;
 };
 typedef struct _MessageData1 MessageData1;
 
-void fillMessageData(MessageData1 *inputData);
 
+
+void checkCan(MessageData1 *inputData, MCP_CAN canObj);
+
+
+void printCANFrame(MessageData1 *inputData);
 
 #endif /* CAN_H */

@@ -52,6 +52,13 @@ typedef struct _XbeeFrame XbeeFrame;
 XbeeFrame constructFrame();
 
 /**
+ * @brief Constructs an  XBee frame with static scaffolding elements and the input data
+ *
+ * @return boolean for success
+ */
+bool encodeData(XbeeFrame * frame_p, MessageData1* messageData1);
+
+/**
  * @brief Calculates the length field of the frame
  *
  * @param frame_p
