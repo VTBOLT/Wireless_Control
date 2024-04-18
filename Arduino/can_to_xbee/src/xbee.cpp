@@ -129,13 +129,13 @@ void printFrame(XbeeFrame *frame_p){
     memcpy(outFrame + 17, &(frame_p->data_p), sizeof(frame_p->data_p));
     memcpy(outFrame + 63, &(frame_p->checksum), sizeof(frame_p->checksum));
 
-    const uint8_t *ptr = (const uint8_t*) frame_p;
-    char msgString[3];
-    for(size_t i = 0; i < sizeof(outFrame); i++){
-        sprintf(msgString, " %.2X", *(outFrame+i));
-        Serial.print(msgString);
-    }
-    Serial1.write(outFrame, FRAME_SIZE);
+    // const uint8_t *ptr = (const uint8_t*) frame_p;
+    // char msgString[3];
+    // for(size_t i = 0; i < sizeof(outFrame); i++){
+    //     sprintf(msgString, " %.2X", *(outFrame+i));
+    //     Serial.print(msgString);
+    // }
+    Serial.write(outFrame, FRAME_SIZE);
 
 
 

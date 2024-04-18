@@ -58,7 +58,7 @@ void applicationLoop(Application *app_p)
     
 
     checkCan(&app_p->messageData1, CAN0);
-    Serial.println();
+    //Serial.println();
     encodeData(&app_p->xbeeFrame1, &app_p->messageData1);
     // If so, keep reading
     calcLength(&app_p->xbeeFrame1);
