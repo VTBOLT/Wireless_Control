@@ -10,7 +10,6 @@
 
 #include <Inc/app.h>
 
-
 MCP_CAN CAN0(53);
 Application app; // Application struct
 
@@ -20,6 +19,7 @@ void setup()
     app = Application_construct();
 
     Serial.begin(115200);
+    Serial1.begin(115200);
 
     // Initialize MCP2515 running at 16MHz with a baudrate of 500kb/s and the masks and filters disabled.
     if (CAN0.begin(MCP_ANY, CAN_500KBPS, MCP_8MHZ) == CAN_OK)
@@ -57,13 +57,12 @@ void applicationLoop(Application *app_p)
 {
     app_p->xbeeFrame1 = constructFrame();
 
-  checkCan(&app_p->messageData1, CAN0);
-  printCANFrame(&app_p->messageData1);
-  Serial.println();
-  // If so, keep reading
+    checkCan(&app_p->messageData1, CAN0);
+    Serial.println();
+    // If so, keep reading
     calcLength(&app_p->xbeeFrame1);
     calcCheckSum(&app_p->xbeeFrame1);
-    //printFrame(&app_p->xbeeFrame1);
+    printFrame(&app_p->xbeeFrame1);
 }
 
 // Blinks an LED once a second as a visual indicator of processor hang
