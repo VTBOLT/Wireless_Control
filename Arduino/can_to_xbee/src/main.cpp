@@ -88,8 +88,3 @@ void InitializePins()
     pinMode(UD_PIN, OUTPUT);
 }
 
-void xBeeFillFrame1(XbeeFrame *frame_p, MessageData1 *messageData_p)
-{
-    memcpy(frame_p->data_p, messageData_p, sizeof(*messageData_p));
-    calcCheckSum(frame_p);
-}

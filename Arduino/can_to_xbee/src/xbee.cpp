@@ -34,7 +34,7 @@ XbeeFrame constructFrame()
 
     // set data bytes all to 0x00
     memset(frame.data_p, 0x00, sizeof(frame.data_p));
-    frame.data_p[0] = 1;
+    frame.data_p[0] = XBEE_FRAME_ID_1;
     
     // set dynamic frame elements
     frame.length = REV16(calcLength(&frame));
@@ -77,8 +77,36 @@ uint8_t calcCheckSum(XbeeFrame *frame_p)
 }
 
 void encodeData(XbeeFrame * frame_p, MessageData1* messageData1){
-    //int test = 1;
-    //memcpy(frame_p->data_p, &test, 1);
+    // set static frame elements
+    frame_p->startDelim = START_DELIM;
+    frame_p->frameType = FRAME_TYPE;
+    frame_p->frameID = FRAME_ID;
+    frame_p->bitAddr64 = DESTINATION_64;
+    frame_p->bitAddr16 = REV16(DESTINATION_16);
+    frame_p->broadcastRadius = BROADCAST_RAD;
+    frame_p->options = OPTIONS;
+
+    // char buf[9];
+    // snprintf(buf, 8, "%d", DESTINATION_64);
+    // Serial.println((unsigned long)frame.bitAddr16);
+
+    // set data bytes all to 0x00
+    memset(frame_p->data_p, 0x00, sizeof(frame_p->data_p));
+    frame_p->data_p[0] = XBEE_FRAME_ID_1;
+    frame_p->data_p[1] = messageData1->aux_voltage;
+    frame_p->data_p[3] = messageData1->pack_state_of_charge;
+    frame_p->data_p[4] = messageData1->high_cell_temp;
+    frame_p->data_p[6] = messageData1->low_cell_temp;
+    frame_p->data_p[8] = messageData1->motor_temperature;
+    frame_p->data_p[10] = messageData1->bms_temperature;
+    frame_p->data_p[12] = messageData1->mc_temp;
+    frame_p->data_p[14] = messageData1->motor_speed;
+    frame_p->data_p[16] = messageData1->bike_speed;
+
+    
+    // set dynamic frame elements
+    frame_p->length = REV16(calcLength(frame_p));
+    frame_p->checksum = calcCheckSum(frame_p);
     
 }
 

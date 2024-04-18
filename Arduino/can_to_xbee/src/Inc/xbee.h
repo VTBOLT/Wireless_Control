@@ -27,6 +27,7 @@
 #define DATA_SIZE 46     // User defined size of the data contained in the frame
 #define FRAME_SIZE DATA_SIZE + SCAFFOLD_SIZE
 #define REV16(n) ((n << 8)  | (n>>8)) 
+#define XBEE_FRAME_ID_1 1
 
 
 struct _XbeeFrame
