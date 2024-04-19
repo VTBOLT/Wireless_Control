@@ -26,8 +26,16 @@
 #define SCAFFOLD_SIZE 18 // Constant size of the frame's scaffolding
 #define DATA_SIZE 46     // User defined size of the data contained in the frame
 #define FRAME_SIZE DATA_SIZE + SCAFFOLD_SIZE
-#define REV16(n) ((n << 8)  | (n>>8)) 
+
+/* XBEE FRAME MACROS */
 #define XBEE_FRAME_ID_1 1
+#define XBEE_FRAME_ID_2 2
+#define XBEE_FRAME_ID_3 3
+#define XBEE_FRAME_ID_4 4
+
+/* MACRO FUNCTION */
+#define REV16(n) ((n << 8)  | (n>>8)) 
+
 
 
 struct _XbeeFrame

@@ -17,9 +17,9 @@
 
 
 /* MACROS */
-#define CAN0_INT 6 
+#define CAN0_INT 6 // Pin for the interrupt to come from
 
-// CAN IDs
+/* CAN IDs */
 #define AUX_BATTERY 0x700
 #define MAIN_BATTERY 0x6B0
 #define MAIN_PACK_TEMP 0x6B4
@@ -28,7 +28,7 @@
 #define MC_TEMP 0xA1
 #define RPM 0xA5
 #define SPEED 0x00
-
+// Future CAN IDs will go below
 
 
       
@@ -54,6 +54,25 @@ struct _MessageData1
     uint64_t time_stamp_unix;
 };
 typedef struct _MessageData1 MessageData1;
+
+// For use with future CANs
+// struct _MessageData2
+// {
+//     /* data */
+// };
+// typedef struct _MessageData2 MessageData2;
+
+// struct _MessageData3
+// {
+//     /* data */
+// };
+// typedef struct _MessageData3 MessageData3;
+
+// struct _MessageData3
+// {
+//     /* data */
+// };
+// typedef struct _MessageData3 MessageData3;
 
 
 

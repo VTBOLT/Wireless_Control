@@ -28,15 +28,11 @@ XbeeFrame constructFrame()
     frame.broadcastRadius = BROADCAST_RAD;
     frame.options = OPTIONS;
 
-    // char buf[9];
-    // snprintf(buf, 8, "%d", DESTINATION_64);
-    // Serial.println((unsigned long)frame.bitAddr16);
-
     // set data bytes all to 0x00
     memset(frame.data_p, 0x00, sizeof(frame.data_p));
     frame.data_p[0] = XBEE_FRAME_ID_1;
     
-    // set dynamic frame elements
+    // update the dynamic frame elements
     frame.length = REV16(calcLength(&frame));
     frame.checksum = calcCheckSum(&frame);
 
@@ -85,10 +81,6 @@ void encodeData(XbeeFrame * frame_p, MessageData1* messageData1){
     frame_p->bitAddr16 = REV16(DESTINATION_16);
     frame_p->broadcastRadius = BROADCAST_RAD;
     frame_p->options = OPTIONS;
-    
-    // char buf[9];
-    // snprintf(buf, 8, "%d", DESTINATION_64);
-    // Serial.println((unsigned long)frame.bitAddr16);
 
     // set data bytes all to 0x00
     memset(frame_p->data_p, 0x00, sizeof(frame_p->data_p));
@@ -114,7 +106,7 @@ void printFrame(XbeeFrame *frame_p){
     //uint8_t outFrame[20] = {0x7E, 0x00, 0x10, 0x10, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFE, 0x00, 0x00, 0x48, 0x69, 0x42};
     uint8_t outFrame[FRAME_SIZE];
     memset(outFrame, 0, sizeof(outFrame));  // Empty the frame
-    
+   
     
     
     // Fill the frame
@@ -130,22 +122,17 @@ void printFrame(XbeeFrame *frame_p){
     memcpy(outFrame + 17, &(frame_p->data_p), sizeof(frame_p->data_p));
     memcpy(outFrame + 63, &(frame_p->checksum), sizeof(frame_p->checksum));
     
-    // Verify the frame is correct in ascii format (Only for debugging the frame)
+    //Verify the frame is correct in ascii format (Only for debugging the frame)
     // const uint8_t *ptr = (const uint8_t*) frame_p;
     // char msgString[3];
     // for(size_t i = 0; i < sizeof(outFrame); i++){
     //     sprintf(msgString, " %02X", *(outFrame+i));
-    //     Serial.print(msgString));
+    //     Serial.print(msgString);
     // }
+    // Serial.println();
    
     
     // This will be used to actually send the frame
     Serial.write(outFrame, sizeof(outFrame));
- 
-    
-    
-
-
 
 }
-

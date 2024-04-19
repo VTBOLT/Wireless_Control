@@ -14,7 +14,7 @@ for port, desc, hwid in sorted(ports):
             print("Using " + PORT)
             break
 
-PORT = "COM4"           
+          
         
 
 # TODO: Replace with the baud rate of your local module.
