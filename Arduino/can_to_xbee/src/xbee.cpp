@@ -85,7 +85,7 @@ void encodeData(XbeeFrame * frame_p, MessageData1* messageData1){
     frame_p->bitAddr16 = REV16(DESTINATION_16);
     frame_p->broadcastRadius = BROADCAST_RAD;
     frame_p->options = OPTIONS;
-
+    
     // char buf[9];
     // snprintf(buf, 8, "%d", DESTINATION_64);
     // Serial.println((unsigned long)frame.bitAddr16);
@@ -110,34 +110,40 @@ void encodeData(XbeeFrame * frame_p, MessageData1* messageData1){
     
 }
 
-void printFrame(XbeeFrame *frame_p){
-    //unsigned int test = 1;
+void printFrame(XbeeFrame *frame_p){    
+    //uint8_t outFrame[20] = {0x7E, 0x00, 0x10, 0x10, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFE, 0x00, 0x00, 0x48, 0x69, 0x42};
+    uint8_t outFrame[FRAME_SIZE];
+    memset(outFrame, 0, sizeof(outFrame));  // Empty the frame
     
-    uint8_t outFrame[20] = {0x7E, 0x00, 0x10, 0x10, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFE, 0x00, 0x00, 0x48, 0x69, 0x42};
-    //uint8_t outFrame[FRAME_SIZE];
-    //memset(outFrame, 0, sizeof(outFrame));  // Empty the frame
-    Serial.write(outFrame, 20);
+    
     
     // Fill the frame
     memcpy(outFrame, &(frame_p->startDelim), sizeof(frame_p->startDelim));
     memcpy(outFrame + 1, &(frame_p->length), sizeof(frame_p->length));
     memcpy(outFrame + 3, &(frame_p->frameType), sizeof(frame_p->frameType));
     memcpy(outFrame + 4, &(frame_p->frameID), sizeof(frame_p->frameID));
+    //memcpy(outFrame + 11, &test, sizeof(test));
     memcpy(outFrame + 11, &(frame_p->bitAddr64), sizeof(frame_p->bitAddr64));
-    memcpy(outFrame + 13, &(frame_p->bitAddr16), sizeof(frame_p->bitAddr16));
+    memcpy(outFrame + 13, &(frame_p->bitAddr16), sizeof(frame_p->bitAddr16));     // 0xFE = 0b 1111 1110
     memcpy(outFrame + 15, &(frame_p->broadcastRadius), sizeof(frame_p->broadcastRadius));
     memcpy(outFrame + 16, &(frame_p->options), sizeof(frame_p->options));
     memcpy(outFrame + 17, &(frame_p->data_p), sizeof(frame_p->data_p));
     memcpy(outFrame + 63, &(frame_p->checksum), sizeof(frame_p->checksum));
     
+    // Verify the frame is correct in ascii format (Only for debugging the frame)
     // const uint8_t *ptr = (const uint8_t*) frame_p;
     // char msgString[3];
     // for(size_t i = 0; i < sizeof(outFrame); i++){
-    //     sprintf(msgString, " %.2X", *(outFrame+i));
-    //     Serial.print(msgString);
+    //     sprintf(msgString, " %02X", *(outFrame+i));
+    //     Serial.print(msgString));
     // }
-    // Serial.write(outFrame, FRAME_SIZE);
-    Serial.println();
+   
+    
+    // This will be used to actually send the frame
+    Serial.write(outFrame, sizeof(outFrame));
+ 
+    
+    
 
 
 
