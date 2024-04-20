@@ -135,8 +135,7 @@ void printFrame(XbeeFrame *frame_p){
     //     sprintf(msgString, " %.2X", *(outFrame+i));
     //     Serial.print(msgString);
     // }
-    Serial.write(outFrame, FRAME_SIZE);
-
+    Serial1.write(outFrame, FRAME_SIZE);
 
 
 }

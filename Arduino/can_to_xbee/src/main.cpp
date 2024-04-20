@@ -9,9 +9,13 @@
  */
 
 #include <Inc/app.h>
+#include "UniversalTimer.h"
 
 MCP_CAN CAN0(53);
 Application app; // Application struct
+#define FRAME_INTERVAL 500
+
+UniversalTimer frameSendTimer(FRAME_INTERVAL, true);
 
 void setup()
 {
@@ -20,6 +24,7 @@ void setup()
 
     Serial.begin(115200);
     Serial1.begin(115200);
+    frameSendTimer.start();
 
     // Initialize MCP2515 running at 16MHz with a baudrate of 500kb/s and the masks and filters disabled.
     if (CAN0.begin(MCP_ANY, CAN_500KBPS, MCP_8MHZ) == CAN_OK)
@@ -49,21 +54,25 @@ Application Application_construct()
     Application app;
 
     app.watchdog_timer = SWTimer_construct(MS_IN_SECONDS);
+    
     app.xbeeFrame1 = constructFrame();
     return app;
+    
 }
 
 void applicationLoop(Application *app_p)
 {
-    
-
     checkCan(&app_p->messageData1, CAN0);
-    //Serial.println();
-    encodeData(&app_p->xbeeFrame1, &app_p->messageData1);
-    // If so, keep reading
-    calcLength(&app_p->xbeeFrame1);
-    calcCheckSum(&app_p->xbeeFrame1);
-    printFrame(&app_p->xbeeFrame1);
+
+    if (frameSendTimer.check())
+    {
+        
+        encodeData(&app_p->xbeeFrame1, &app_p->messageData1);
+        // If so, keep reading
+        calcLength(&app_p->xbeeFrame1);
+        calcCheckSum(&app_p->xbeeFrame1);
+        printFrame(&app_p->xbeeFrame1);
+    }
 }
 
 // Blinks an LED once a second as a visual indicator of processor hang
@@ -87,4 +96,3 @@ void InitializePins()
     pinMode(INC_PIN, OUTPUT);
     pinMode(UD_PIN, OUTPUT);
 }
-
