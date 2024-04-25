@@ -7,6 +7,9 @@
  *
  * @date 4/13/2024
  */
+// 2 Low 
+// 7 High
+// 3 GND
 
 #include <Inc/app.h>
 #include "UniversalTimer.h"

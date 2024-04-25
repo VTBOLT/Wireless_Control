@@ -1,0 +1,71 @@
+*{
+    margin: 0;
+    padding: 0;
+    font:normal normal normal 40px/1.4em avenir-lt-w01_85-heavy1475544,avenir-lt-w05_85-heavy,sans-serif;
+}
+
+
+#dataTable {
+    table-layout: fixed;
+    width: 100vw;
+    border-collapse: collapse;
+    border: 3px solid black;
+}
+
+#dataTable td{
+    border:1px solid black;
+    padding: 10px;
+    text-align: left;
+}
+
+#dataTable th{
+    border:1px solid black;
+    padding: 10px;
+
+}
+
+#map { 
+    height: 60vh; 
+    width: 100vw;
+}
+
+tr:nth-child(even) {
+    background-color: #D6EEEE;
+}
+
+
+
+nav{
+    height: 8vh;
+    width: 90vw;
+    position: sticky;
+    margin: 2vh 5vw 2vh 5vw;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+}
+
+.logo{
+    flex-basis: 20%;
+}
+
+.logo img{
+    width: 150px;
+}
+
+.nav-links{
+    flex: 1;
+    text-align: right;
+}
+
+.nav-links ul li{
+    list-style: none;
+    display: inline-block;
+    margin-left: 1vw;
+    margin-right: 1vw;
+}
+
+.nav-links ul li a{
+    color: black;
+    text-decoration: none;
+}

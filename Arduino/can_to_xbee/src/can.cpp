@@ -20,11 +20,13 @@ void checkCan(MessageData1 *messageData, MCP_CAN canObj)
         canObj.readMsgBuf(&rxId, &len, rxBuf);
         switch (rxId)
         {
+            // Check Decode Here
         case AUX_BATTERY:
             messageData->aux_voltage = rxBuf[1] << 8;
             messageData->aux_voltage += rxBuf[0];
             // messageData->aux_percent = rxBuf[1];
             break;
+            // Check Decode Here
         case MAIN_BATTERY:
             messageData->pack_state_of_charge = rxBuf[4];
             break;

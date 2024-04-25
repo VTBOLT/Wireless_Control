@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOLT GPS</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="./leaflet/leaflet.js"></script>
+    <script src="./socket.io-client.js"></script>
+    <script src="index.js"></script>
+
+    <link rel="stylesheet" href="./leaflet/leaflet.css" />
+</head>
+
+<body onload={onload()}>
+
+
+    <nav>
+        <div class="logo">
+            <img src="BoltLogo.webp">
+        </div>
+        <div id=connectionStatus>Disconnected</div>
+        <div class="nav-links">
+            <ul>
+                <li> <a href="index.html">Map</a></li>
+                <li> <a href="metrics.html">Metrics</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div id="map"></div>
+    <table id="dataTable"> 
+        <tr>
+            <th>Time</th>
+            
+            <th>Aux Voltage</th>
+            <th>Aux Percent</th>
+            <th>Charge State</th>
+            <th>High Cell Temp</th>
+            <th>Low Cell Temp</th>
+            <th>Motor Temp</th>
+            <th>BMS Temp</th>
+            <th>Motor Speed</th>
+            <th>Bike Speed</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
+
+        </tr>
+    </table>
+</body>
+
+</html>
