@@ -100,7 +100,7 @@ void sendIMUMessage(IMU imuData, MCP_CAN canObj) {
     memcpy(&IMU_3[0], imuData.getYAccel(), 4);
     memcpy(&IMU_3[4], imuData.getZAccel(), 4);
 
-    msg_status[0] = CAN0.sendMsgBuf(ID_0, 0, DLC, IMU_1);
-    msg_status[1] = CAN0.sendMsgBuf(ID_1, 0, DLC, IMU_2);
-    msg_status[2] = CAN0.sendMsgBuf(ID_2, 0, DLC, IMU_3);
+    msg_status[0] = canObj.sendMsgBuf(IMU2CAN_1, 0, DLC, IMU_1);
+    msg_status[1] = canObj.sendMsgBuf(IMU2CAN_2, 0, DLC, IMU_2);
+    msg_status[2] = canObj.sendMsgBuf(IMU2CAN_3, 0, DLC, IMU_3);
 }

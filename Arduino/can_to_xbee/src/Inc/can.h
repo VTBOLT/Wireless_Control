@@ -32,6 +32,7 @@
 #define IMU2CAN_1 0x0B1
 #define IMU2CAN_2 0x0B2
 #define IMU2CAN_3 0x0B3
+#define DLC 0x8
 
 
 
