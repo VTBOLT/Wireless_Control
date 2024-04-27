@@ -92,7 +92,7 @@ void sendIMUMessage(IMU imuData, MCP_CAN canObj) {
     byte IMU_3[8];
 
     memcpy(&IMU_1[0], imuData.getYaw(), 4);
-    memcpy(&IMU_1[4], imuData.getPitch(), 4);
+    memcpy(&IMU_1[4], imuData.getPitch(), 4); 
 
     memcpy(&IMU_2[0], imuData.getRoll(), 4);
     memcpy(&IMU_2[4], imuData.getXAccel(), 4);
@@ -103,4 +103,8 @@ void sendIMUMessage(IMU imuData, MCP_CAN canObj) {
     msg_status[0] = canObj.sendMsgBuf(IMU2CAN_1, 0, DLC, IMU_1);
     msg_status[1] = canObj.sendMsgBuf(IMU2CAN_2, 0, DLC, IMU_2);
     msg_status[2] = canObj.sendMsgBuf(IMU2CAN_3, 0, DLC, IMU_3);
+
+    Serial.println(String(msg_status[0]));
+    Serial.println(String(msg_status[1]));
+    Serial.println(String(msg_status[2]));
 }

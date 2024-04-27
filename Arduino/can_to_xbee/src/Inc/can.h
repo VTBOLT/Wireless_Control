@@ -14,8 +14,7 @@
 /* INCLUDES */
 #include <Arduino.h>
 #include <mcp_can.h>
-//#include "imu.h"
-
+#include <Inc/imu.h>
 
 /* MACROS */
 #define CAN0_INT 2 
@@ -70,6 +69,6 @@ void checkCan(MessageData1 *inputData, MCP_CAN canObj);
 void printCANFrame(MessageData1 *inputData);
 
 
-//void sendIMUMessage(IMU_Data data, MCP_CAN canObj);
+void sendIMUMessage(IMU data, MCP_CAN canObj);
 
 #endif /* CAN_H */

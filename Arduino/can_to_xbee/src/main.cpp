@@ -29,8 +29,11 @@ void setup()
     Serial1.begin(115200);
     frameSendTimer.start();
 
+    // Start Serial2 for IMU communication
+    Serial2.begin(115200);
+
     // Initialize MCP2515 running at 16MHz with a baudrate of 500kb/s and the masks and filters disabled.
-    if (CAN0.begin(MCP_ANY, CAN_500KBPS, MCP_8MHZ) == CAN_OK)
+    if (CAN0.begin(MCP_STDEXT, CAN_500KBPS, MCP_8MHZ) == CAN_OK)
         Serial.println("MCP2515 Initialized Successfully!");
     else
         Serial.println("Error Initializing MCP2515...");
@@ -53,13 +56,14 @@ void loop()
     imuData.imu_sync_detected = false;
 
      // Check if new IMU data is available
-    if (Serial2.available() > 29)
+    if (Serial2.available() > 29){
         imuData.check_sync_byte();
+    }
 
     // If sync byte is detected, read the rest of the data
     if (imuData.imu_sync_detected){
         imuData.read_imu_data();
-        // sendIMUMessage(data, CAN0);
+        sendIMUMessage(imuData, CAN0);
     }
 }
 

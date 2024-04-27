@@ -8,12 +8,12 @@ class IMU{
         void check_sync_byte();
         unsigned short calculate_imu_crc(byte data[], unsigned int length);
         bool imu_sync_detected = false; // check if the sync byte (0xFA) is detected
-        const unsigned char* getYaw(); //gets the address of the 8 bytes
-        const unsigned char* getPitch(); //gets the address of the 8 bytes
-        const unsigned char* getRoll(); //gets the address of the 8 bytes
-        const unsigned char* getXAccel(); //gets the address of the 8 bytes
-        const unsigned char* getYAccel(); //gets the address of the 8 bytes
-        const unsigned char* getZAccel(); //gets the address of the 8 bytes
+        const float* getYaw(); //gets the address of the 8 bytes
+        const float* getPitch(); //gets the address of the 8 bytes
+        const float* getRoll(); //gets the address of the 8 bytes
+        const float* getXAccel(); //gets the address of the 8 bytes
+        const float* getYAccel(); //gets the address of the 8 bytes
+        const float* getZAccel(); //gets the address of the 8 bytes
 
     private:
         union{float f;  byte b[4];} yaw;

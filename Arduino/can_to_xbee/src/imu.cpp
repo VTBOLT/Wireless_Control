@@ -1,22 +1,22 @@
 #include <Inc/imu.h>
 
-const unsigned char* IMU::getYaw(){
-  return yaw.b;
+const float* IMU::getYaw(){
+  return &yaw.f;
 }
-const unsigned char* IMU::getPitch(){
-  return pitch.b;
+const float* IMU::getPitch(){
+  return &pitch.f;
 }
-const unsigned char* IMU::getRoll(){
-  return roll.b;
+const float* IMU::getRoll(){
+  return &roll.f;
 }
-const unsigned char* IMU::getXAccel(){
-  return a_x.b;
+const float* IMU::getXAccel(){
+  return &a_x.f;
 }
-const unsigned char* IMU::getYAccel(){
-  return a_y.b;
+const float* IMU::getYAccel(){
+  return &a_y.f;
 }
-const unsigned char* IMU::getZAccel(){
-  return a_z.b;
+const float* IMU::getZAccel(){
+  return &a_z.f;
 }
 
 void IMU::check_sync_byte(){
