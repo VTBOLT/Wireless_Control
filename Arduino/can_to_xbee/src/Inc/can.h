@@ -14,6 +14,7 @@
 /* INCLUDES */
 #include <Arduino.h>
 #include <mcp_can.h>
+//#include "imu.h"
 
 
 /* MACROS */
@@ -28,6 +29,9 @@
 #define MC_TEMP 0xA1
 #define RPM 0xA5
 #define SPEED 0x00
+#define IMU_1 0x0B1
+#define IMU_2 0x0B2
+#define IMU_3 0x0B3
 
 
 
@@ -52,6 +56,8 @@ struct _MessageData1
     int32_t longitude;
     int32_t latitude;
     uint64_t time_stamp_unix;
+
+
 };
 typedef struct _MessageData1 MessageData1;
 
@@ -61,5 +67,8 @@ void checkCan(MessageData1 *inputData, MCP_CAN canObj);
 
 
 void printCANFrame(MessageData1 *inputData);
+
+
+//void sendIMUMessage(IMU_Data data, MCP_CAN canObj);
 
 #endif /* CAN_H */

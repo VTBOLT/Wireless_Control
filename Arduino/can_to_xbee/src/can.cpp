@@ -83,3 +83,7 @@ void printCANFrame(MessageData1 *inputData)
     // Serial.print(" ");
     //}
 }
+
+// void sendIMUMessage(IMU_Data data, MCP_CAN canObj)
+// {
+// }

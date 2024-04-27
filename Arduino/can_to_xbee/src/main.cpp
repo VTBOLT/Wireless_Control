@@ -10,12 +10,15 @@
 
 #include <Inc/app.h>
 #include "UniversalTimer.h"
+#include "Inc/imu.h"
 
 MCP_CAN CAN0(53);
 Application app; // Application struct
 #define FRAME_INTERVAL 500
 
 UniversalTimer frameSendTimer(FRAME_INTERVAL, true);
+
+IMU_Data data;
 
 void setup()
 {
@@ -46,6 +49,18 @@ void loop()
 
     // Primary source of action, baby
     applicationLoop(&app);
+
+        imu_sync_detected = false;
+
+     // Check if new IMU data is available
+    if (Serial2.available() > 29)
+        check_sync_byte();
+
+    // If sync byte is detected, read the rest of the data
+    if (imu_sync_detected){
+        read_imu_data(data);
+        // sendIMUMessage(data, CAN0);
+    }
 }
 
 // First time setup for the Application
@@ -73,6 +88,7 @@ void applicationLoop(Application *app_p)
         calcCheckSum(&app_p->xbeeFrame1);
         printFrame(&app_p->xbeeFrame1);
     }
+
 }
 
 // Blinks an LED once a second as a visual indicator of processor hang
