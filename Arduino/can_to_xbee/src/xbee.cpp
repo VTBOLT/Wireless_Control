@@ -93,7 +93,6 @@ void encodeData(XbeeFrame * frame_p, MessageData1* messageData1){
     // set data bytes all to 0x00
     memset(frame_p->data_p, 0x00, sizeof(frame_p->data_p));
     frame_p->data_p[0] = XBEE_FRAME_ID_1;
-    
     memcpy(frame_p->data_p + 1, &(messageData1->aux_voltage), sizeof(messageData1->aux_voltage));
     memcpy(frame_p->data_p + 3, &(messageData1->pack_state_of_charge), sizeof(messageData1->pack_state_of_charge));
     memcpy(frame_p->data_p + 4, &(messageData1->high_cell_temp), sizeof(messageData1->high_cell_temp));
