@@ -29,9 +29,9 @@
 #define MC_TEMP 0xA1
 #define RPM 0xA5
 #define SPEED 0x00
-#define IMU_1 0x0B1
-#define IMU_2 0x0B2
-#define IMU_3 0x0B3
+#define IMU2CAN_1 0x0B1
+#define IMU2CAN_2 0x0B2
+#define IMU2CAN_3 0x0B3
 
 
 

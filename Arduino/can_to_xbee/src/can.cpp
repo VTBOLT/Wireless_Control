@@ -9,6 +9,7 @@
  */
 
 #include <Inc/can.h>
+#include <Inc/imu.h>
 
 void checkCan(MessageData1 *messageData, MCP_CAN canObj)
 {
@@ -84,6 +85,22 @@ void printCANFrame(MessageData1 *inputData)
     //}
 }
 
-// void sendIMUMessage(IMU_Data data, MCP_CAN canObj)
-// {
-// }
+void sendIMUMessage(IMU imuData, MCP_CAN canObj) {
+    byte msg_status[3];
+    byte IMU_1[8]; //for concatinating data
+    byte IMU_2[8];
+    byte IMU_3[8];
+
+    memcpy(&IMU_1[0], imuData.getYaw(), 4);
+    memcpy(&IMU_1[4], imuData.getPitch(), 4);
+
+    memcpy(&IMU_2[0], imuData.getRoll(), 4);
+    memcpy(&IMU_2[4], imuData.getXAccel(), 4);
+
+    memcpy(&IMU_3[0], imuData.getYAccel(), 4);
+    memcpy(&IMU_3[4], imuData.getZAccel(), 4);
+
+    msg_status[0] = CAN0.sendMsgBuf(ID_0, 0, DLC, IMU_1);
+    msg_status[1] = CAN0.sendMsgBuf(ID_1, 0, DLC, IMU_2);
+    msg_status[2] = CAN0.sendMsgBuf(ID_2, 0, DLC, IMU_3);
+}

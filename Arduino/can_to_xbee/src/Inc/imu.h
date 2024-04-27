@@ -2,23 +2,35 @@
 
 #include <arduino.h>
 
-struct _IMU_Data{
-    union{float f;  byte b[4];} yaw;
-    union{float f;  byte b[4];} pitch;
-    union{float f;  byte b[4];} roll;
+class IMU{
+    public:
+        void read_imu_data();
+        void check_sync_byte();
+        unsigned short calculate_imu_crc(byte data[], unsigned int length);
+        bool imu_sync_detected = false; // check if the sync byte (0xFA) is detected
+        const unsigned char* getYaw(); //gets the address of the 8 bytes
+        const unsigned char* getPitch(); //gets the address of the 8 bytes
+        const unsigned char* getRoll(); //gets the address of the 8 bytes
+        const unsigned char* getXAccel(); //gets the address of the 8 bytes
+        const unsigned char* getYAccel(); //gets the address of the 8 bytes
+        const unsigned char* getZAccel(); //gets the address of the 8 bytes
 
-    // Acceleration
-    union{float f;  byte b[4];} a_x;
-    union{float f;  byte b[4];} a_y;
-    union{float f;  byte b[4];} a_z;
+    private:
+        union{float f;  byte b[4];} yaw;
+        union{float f;  byte b[4];} pitch;
+        union{float f;  byte b[4];} roll;
 
-    bool imu_sync_detected = false; // check if the sync byte (0xFA) is detected
-    byte in[100]; // array to save data send from the IMU
-}; typedef struct _IMU_Data IMU_Data;
+        // Acceleration
+        union{float f;  byte b[4];} a_x;
+        union{float f;  byte b[4];} a_y;
+        union{float f;  byte b[4];} a_z;
 
-void read_imu_data(IMU_Data data);
-void check_sync_byte(void);
-unsigned short calculate_imu_crc(byte data[], unsigned int length);
+        byte in[100]; // array to save data send from the IMU
+
+};
+
+
+
 
 
 

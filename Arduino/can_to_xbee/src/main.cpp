@@ -18,7 +18,7 @@ Application app; // Application struct
 
 UniversalTimer frameSendTimer(FRAME_INTERVAL, true);
 
-IMU_Data data;
+IMU imuData;
 
 void setup()
 {
@@ -50,15 +50,15 @@ void loop()
     // Primary source of action, baby
     applicationLoop(&app);
 
-        imu_sync_detected = false;
+    imuData.imu_sync_detected = false;
 
      // Check if new IMU data is available
     if (Serial2.available() > 29)
-        check_sync_byte();
+        imuData.check_sync_byte();
 
     // If sync byte is detected, read the rest of the data
-    if (imu_sync_detected){
-        read_imu_data(data);
+    if (imuData.imu_sync_detected){
+        imuData.read_imu_data();
         // sendIMUMessage(data, CAN0);
     }
 }
