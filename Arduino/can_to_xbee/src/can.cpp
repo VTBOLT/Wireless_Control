@@ -79,7 +79,7 @@ void printCANFrame(MessageData1 *inputData)
     // Serial.print(" ");
     // Serial.print(inputData->mc_temp, HEX);
     // Serial.print(" ");
-    Serial.print(inputData->motor_speed, HEX);
-    Serial.print(" ");
+    Serial.println(inputData->motor_speed, HEX);
+    // Serial.print(" ");
     //}
 }

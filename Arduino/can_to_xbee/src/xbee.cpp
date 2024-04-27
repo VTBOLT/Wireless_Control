@@ -93,15 +93,16 @@ void encodeData(XbeeFrame * frame_p, MessageData1* messageData1){
     // set data bytes all to 0x00
     memset(frame_p->data_p, 0x00, sizeof(frame_p->data_p));
     frame_p->data_p[0] = XBEE_FRAME_ID_1;
-    frame_p->data_p[1] = messageData1->aux_voltage;
-    frame_p->data_p[3] = messageData1->pack_state_of_charge;
-    frame_p->data_p[4] = messageData1->high_cell_temp;
-    frame_p->data_p[6] = messageData1->low_cell_temp;
-    frame_p->data_p[8] = messageData1->motor_temperature;
-    frame_p->data_p[10] = messageData1->bms_temperature;
-    frame_p->data_p[12] = messageData1->mc_temp;
-    frame_p->data_p[14] = messageData1->motor_speed;
-    frame_p->data_p[16] = messageData1->bike_speed;
+    
+    memcpy(frame_p->data_p + 1, &(messageData1->aux_voltage), sizeof(messageData1->aux_voltage));
+    memcpy(frame_p->data_p + 3, &(messageData1->pack_state_of_charge), sizeof(messageData1->pack_state_of_charge));
+    memcpy(frame_p->data_p + 4, &(messageData1->high_cell_temp), sizeof(messageData1->high_cell_temp));
+    memcpy(frame_p->data_p + 6, &(messageData1->low_cell_temp), sizeof(messageData1->low_cell_temp));
+    memcpy(frame_p->data_p + 8, &(messageData1->motor_temperature), sizeof(messageData1->motor_temperature));
+    memcpy(frame_p->data_p + 10, &(messageData1->bms_temperature), sizeof(messageData1->bms_temperature));
+    memcpy(frame_p->data_p + 12, &(messageData1->mc_temp), sizeof(messageData1->mc_temp));
+    memcpy(frame_p->data_p + 14, &(messageData1->motor_speed), sizeof(messageData1->motor_speed));
+    memcpy(frame_p->data_p + 16, &(messageData1->bike_speed), sizeof(messageData1->bike_speed));
 
     
     // set dynamic frame elements
@@ -136,7 +137,6 @@ void printFrame(XbeeFrame *frame_p){
     //     Serial.print(msgString);
     // }
     Serial1.write(outFrame, FRAME_SIZE);
-
-
+    
 }
 
