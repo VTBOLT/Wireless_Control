@@ -104,7 +104,10 @@ void sendIMUMessage(IMU imuData, MCP_CAN canObj) {
     msg_status[1] = canObj.sendMsgBuf(IMU2CAN_2, 0, DLC, IMU_2);
     msg_status[2] = canObj.sendMsgBuf(IMU2CAN_3, 0, DLC, IMU_3);
 
-    Serial.println(String(msg_status[0]));
+    // Serial.println(String(msg_status[0]));
+    // Serial.println(String(msg_status[1]));
+    // Serial.println(String(msg_status[2]));
+    //Serial.println(String(IMU_1[0]));
     Serial.println(String(msg_status[1]));
     Serial.println(String(msg_status[2]));
 }
