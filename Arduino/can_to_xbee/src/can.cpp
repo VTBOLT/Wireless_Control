@@ -19,15 +19,24 @@ void checkCan(MessageData1 *messageData, MCP_CAN canObj)
         unsigned char len;
         unsigned char rxBuf[8];
         canObj.readMsgBuf(&rxId, &len, rxBuf);
+
+        uint16_t modA;
+        uint16_t modB;
+        uint16_t modC;
+
+
         switch (rxId)
         {
         case AUX_BATTERY:
             messageData->aux_voltage = rxBuf[1] << 8;
             messageData->aux_voltage += rxBuf[0];
-            // messageData->aux_percent = rxBuf[1];
             break;
         case MAIN_BATTERY:
             messageData->pack_state_of_charge = rxBuf[4];
+            messageData->pack_voltage = rxBuf[3] << 8;
+            messageData->pack_voltage += rxBuf[2];
+            messageData->pack_current = rxBuf[1] << 8;
+            messageData->pack_current += rxBuf[0];
             break;
         case MAIN_PACK_TEMP:
             messageData->high_cell_temp = rxBuf[1] << 8;
@@ -44,16 +53,20 @@ void checkCan(MessageData1 *messageData, MCP_CAN canObj)
             messageData->bms_temperature += rxBuf[4];
             break;
         case MC_TEMP:
-            messageData->mc_temp = rxBuf[1] << 8;
-            messageData->mc_temp += rxBuf[0];
+            modA = rxBuf[1] << 8;
+            modA += rxBuf[0];
+            modB = rxBuf[3] << 8;
+            modB += rxBuf[2];
+            modC = rxBuf[5] << 8;
+            modC += rxBuf[4];
+
+            //modC tends to run hot
+            messageData->motor_temperature = modC;
+
             break;
         case RPM:
             messageData->motor_speed = rxBuf[3] << 8;
             messageData->motor_speed += rxBuf[2];
-            break;
-        case SPEED:
-            messageData->bike_speed = rxBuf[1] << 8;
-            messageData->bike_speed += rxBuf[0];
             break;
         default:
             break;

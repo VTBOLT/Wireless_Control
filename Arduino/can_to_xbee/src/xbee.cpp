@@ -12,7 +12,6 @@
 #include <Arduino.h>
 #include "Inc/xbee.h"
 
-
 /* Function Definitions */
 
 XbeeFrame constructFrame()
@@ -35,7 +34,7 @@ XbeeFrame constructFrame()
     // set data bytes all to 0x00
     memset(frame.data_p, 0x00, sizeof(frame.data_p));
     frame.data_p[0] = XBEE_FRAME_ID_1;
-    
+
     // set dynamic frame elements
     frame.length = REV16(calcLength(&frame));
     frame.checksum = calcCheckSum(&frame);
@@ -73,10 +72,11 @@ uint8_t calcCheckSum(XbeeFrame *frame_p)
     {
         sum += frame_p->data_p[i];
     }
-    return 0xFF - (sum-3);
+    return 0xFF - (sum - 3);
 }
 
-void encodeData(XbeeFrame * frame_p, MessageData1* messageData1){
+void encodeData(XbeeFrame *frame_p, MessageData1 *messageData1)
+{
     // set static frame elements
     frame_p->startDelim = START_DELIM;
     frame_p->frameType = FRAME_TYPE;
@@ -101,22 +101,22 @@ void encodeData(XbeeFrame * frame_p, MessageData1* messageData1){
     memcpy(frame_p->data_p + 10, &(messageData1->bms_temperature), sizeof(messageData1->bms_temperature));
     memcpy(frame_p->data_p + 12, &(messageData1->mc_temp), sizeof(messageData1->mc_temp));
     memcpy(frame_p->data_p + 14, &(messageData1->motor_speed), sizeof(messageData1->motor_speed));
-    memcpy(frame_p->data_p + 16, &(messageData1->bike_speed), sizeof(messageData1->bike_speed));
+    memcpy(frame_p->data_p + 16, &(messageData1->pack_voltage), sizeof(messageData1->pack_voltage));
+    memcpy(frame_p->data_p + 18, &(messageData1->pack_current), sizeof(messageData1->pack_current));
 
-    
     // set dynamic frame elements
     frame_p->length = REV16(calcLength(frame_p));
     frame_p->checksum = calcCheckSum(frame_p);
-    
 }
 
-void printFrame(XbeeFrame *frame_p){
-    //unsigned int test = 1;
-    
-    //uint8_t outFrame[20] = {0x7E, 0x00, 0x10, 0x10, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFE, 0x00, 0x00, 0x48, 0x69, 0x42};
+void printFrame(XbeeFrame *frame_p)
+{
+    // unsigned int test = 1;
+
+    // uint8_t outFrame[20] = {0x7E, 0x00, 0x10, 0x10, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFE, 0x00, 0x00, 0x48, 0x69, 0x42};
     uint8_t outFrame[FRAME_SIZE];
-    memset(outFrame, 0, sizeof(outFrame));  // Empty the frame
-    
+    memset(outFrame, 0, sizeof(outFrame)); // Empty the frame
+
     // Fill the frame
     memcpy(outFrame, &(frame_p->startDelim), sizeof(frame_p->startDelim));
     memcpy(outFrame + 1, &(frame_p->length), sizeof(frame_p->length));
@@ -136,6 +136,4 @@ void printFrame(XbeeFrame *frame_p){
     //     Serial.print(msgString);
     // }
     Serial1.write(outFrame, FRAME_SIZE);
-    
 }
-
